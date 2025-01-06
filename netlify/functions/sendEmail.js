@@ -11,7 +11,7 @@ const sgMail = require('@sendgrid/mail');
 
         const msg = {
           to: [to, copy],
-          from: 'test@example.com', // Replace with your verified sender email
+          from: 'mark@sirilankan.com', // Replace with your verified sender email
           subject: subject,
           html: design,
         };

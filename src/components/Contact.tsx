@@ -14,13 +14,31 @@ import React, { useState } from 'react';
         setFormMessage('');
 
         try {
-          // Simulate form submission
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          const response = await fetch('https://send-any-foam.indunissanka.workers.dev/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              to: 'indunissanka@gmail.com',
+              subject: 'Contact Form Submission',
+              design: `
+                Name: ${name}
+                Email: ${email}
+                Message: ${message}
+              `,
+            }),
+          });
 
-          setFormMessage('Message sent successfully!');
-          setName('');
-          setEmail('');
-          setMessage('');
+          if (response.ok) {
+            setFormMessage('Message sent successfully!');
+            setName('');
+            setEmail('');
+            setMessage('');
+          } else {
+            const errorData = await response.json();
+            setFormMessage(`Failed to send message. Please try again. ${errorData.message || ''}`);
+          }
         } catch (error) {
           setFormMessage('Failed to send message. Please try again.');
         } finally {

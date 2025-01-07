@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
     import type { CakeDesign } from '../types/cake';
     import { generateEmailTemplate } from '../utils/emailTemplate';
@@ -10,7 +11,7 @@ import React, { useState } from 'react';
       const [email, setEmail] = useState('');
       const [sending, setSending] = useState(false);
       const [message, setMessage] = useState('');
-      const copyEmail = 'indunissanka@gmail.com';
+      const copyEmail = 'buddhikaf1gmail.com';
 
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -19,7 +20,7 @@ import React, { useState } from 'react';
 
         try {
           const emailContent = generateEmailTemplate(design);
-          const response = await fetch('/.netlify/functions/sendEmail', {
+          const response = await fetch('https://send-any-foam.indunissanka.workers.dev/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

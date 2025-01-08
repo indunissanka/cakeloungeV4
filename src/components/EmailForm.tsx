@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
     import type { CakeDesign } from '../types/cake';
     import { generateEmailTemplate } from '../utils/emailTemplate';
@@ -11,7 +10,7 @@ import React, { useState } from 'react';
       const [email, setEmail] = useState('');
       const [sending, setSending] = useState(false);
       const [message, setMessage] = useState('');
-      const copyEmail = 'buddhikaf1gmail.com';
+      const copyEmail = 'buddhikaf1@gmail.com';
 
       const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

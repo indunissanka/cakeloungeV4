@@ -7,9 +7,7 @@ import React from 'react';
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 py-6">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-              <div className="flex flex-col items-center">
-                <Logo />
-              </div>
+              <Logo />
               <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6 text-sm">
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-gray-600" />

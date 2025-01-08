@@ -47,7 +47,7 @@ import React, { useState } from 'react';
       };
 
       return (
-        <section className="bg-gray-100 py-12">
+        <section className="bg-pink-100 py-12">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-3xl font-serif text-gray-900 mb-8 text-center">Contact Us</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

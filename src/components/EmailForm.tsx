@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
     import type { CakeDesign } from '../types/cake';
     import { generateEmailTemplate } from '../utils/emailTemplate';
+    import { nanoid } from 'nanoid';
 
     interface EmailFormProps {
       design: CakeDesign;
@@ -18,7 +19,8 @@ import React, { useState } from 'react';
         setMessage('');
 
         try {
-          const emailContent = generateEmailTemplate(design);
+          const designId = nanoid(8);
+          const emailContent = generateEmailTemplate(design, designId);
           const response = await fetch('https://send-any-foam.indunissanka.workers.dev/', {
             method: 'POST',
             headers: {
@@ -26,8 +28,8 @@ import React, { useState } from 'react';
             },
             body: JSON.stringify({
               to: email,
-              copy: copyEmail,
-              subject: 'Cake Design',
+              copy: `${copyEmail},${email}`,
+              subject: `Cake Design - ${designId}`,
               design: emailContent,
             }),
           });

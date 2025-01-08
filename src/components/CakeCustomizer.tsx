@@ -11,8 +11,8 @@ import React, { useState } from 'react';
       const [design, setDesign] = useState<CakeDesign>({
         tiers: [
           {
-            layers: 2,
-            colors: ['#FFB5E8', '#FFC9DE'],
+            layers: 1,
+            colors: ['#FFB5E8'],
             outerColor: '#FFF5E4',
           },
         ],

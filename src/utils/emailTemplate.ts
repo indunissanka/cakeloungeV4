@@ -1,6 +1,6 @@
 import type { CakeDesign } from '../types/cake';
 
-    export const generateEmailTemplate = (design: CakeDesign): string => {
+    export const generateEmailTemplate = (design: CakeDesign, designId: string): string => {
       const tiers = design.tiers.map((tier, index) => {
         const colorBoxes = tier.colors.map(color => `<span style="display:inline-block;width:15px;height:15px;background-color:${color};border:1px solid black;margin-right:5px;"></span>`).join('');
         return `
@@ -61,6 +61,7 @@ import type { CakeDesign } from '../types/cake';
       return `
         <div style="font-family: Arial, sans-serif; color: #333;">
           <h2 style="color: #e91e63; border-bottom: 2px solid #e91e63; padding-bottom: 5px;">Cake Design Details</h2>
+          <p><strong>Design ID:</strong> ${designId}</p>
           <p><strong>Cake Shape:</strong> ${design.shape}</p>
           <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
             <thead style="background-color: #f8f8f8;">

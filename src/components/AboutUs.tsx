@@ -18,7 +18,7 @@ import React from 'react';
                   My name is Buddhika Sri Nissanka, and I truly believe that great food is not only about its taste but also about the people with whom you enjoy it.
                 </p>
                 <p className="text-gray-700">
-                  The Cake Lounge is a family-owned business, proudly led by two sisters, with two distinctive studios located in Colombo, Sri Lanka, and Paris, France. For over twenty years, we have been dedicated to our passion for cakes and baking.
+                  The Cake Lounge is a family-owned business, proudly led by me and my sister, with two distinctive studios located in Colombo, Sri Lanka, and Paris, France. For over twenty years, we have been dedicated to our passion for cakes and baking.
                 </p>
                 <p className="text-gray-700">
                   It has been our lifelong dream to open our own bakery, and we are delighted to have made that dream a reality. Our bakery is a fully registered food establishment, holding a complete hygiene certification, and we are proud of our excellent rating on the doors.

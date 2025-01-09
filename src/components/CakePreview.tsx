@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
     import type { TierConfig, CakeTopper } from '../types/cake';
 
     interface CakePreviewProps {
@@ -16,7 +16,7 @@ import React from 'react';
         return totalHeight + (tiers[tiers.length - 1].layers * 8);
       };
 
-      const topTierHeight = React.useMemo(calculateTopTierHeight, [tiers]);
+      const topTierHeight = useMemo(calculateTopTierHeight, [tiers]);
 
       const renderTopper = () => {
         if (!topper) return null;
@@ -31,6 +31,7 @@ import React from 'react';
           textAlign: 'center',
           width: 'fit-content',
           lineHeight: '1em',
+          whiteSpace: 'nowrap',
         };
 
         const woodColor = '#A0522D';
@@ -70,14 +71,7 @@ import React from 'react';
 
       return (
         <div className="flex flex-col items-center justify-end h-[400px] rounded-lg p-4 relative">
-          {topper && (
-            <div
-              className="absolute left-1/2 transform -translate-x-1/2 text-center"
-              style={{ top: `calc(100% - ${topTierHeight + 60}px)` }}
-            >
-              {renderTopper()}
-            </div>
-          )}
+          
           {[...tiers].reverse().map((tier, index) => {
             const reversedIndex = tiers.length - 1 - index;
             const width = 200 - (reversedIndex * 25);
@@ -85,6 +79,9 @@ import React from 'react';
             const colors = tier.colors.slice(0, layerCount);
             const layersPerColor = Math.floor(6 / colors.length);
             const remainder = 6 % colors.length;
+            const isTopTier = reversedIndex === 0;
+            const topperOffset = isTopTier ? `calc(-65px + ${tiers.length > 0 ? -50 * (tiers.length - 1) : 0}px)` : 0;
+
 
             return (
               <div
@@ -122,6 +119,14 @@ import React from 'react';
                     />
                   );
                 })}
+              {isTopTier && topper && (
+                  <div
+                    className="absolute left-1/2 transform -translate-x-1/2 text-center"
+                    style={{ top: `${topperOffset}` }}
+                  >
+                    {renderTopper()}
+                  </div>
+                )}
               </div>
             );
           })}

@@ -65,13 +65,13 @@ import React from 'react';
               />
             </div>
 
-            {Array.from({ length: tier.layers }).map((_, layerIndex) => (
+            {Array.from({ length: Math.min(tier.layers, 6) }).map((_, layerIndex) => (
               <div key={layerIndex} className="space-y-2">
                 <label className="block text-sm font-medium text-gray-700">
                   Layer {layerIndex + 1} Color
                 </label>
                 <ColorPicker
-                  color={tier.colors[layerIndex]}
+                  color={tier.colors[layerIndex] || '#FFB5E8'}
                   onChange={(color) => handleColorChange(layerIndex, color)}
                 />
               </div>

@@ -11,9 +11,9 @@ import React from 'react';
         if (tiers.length === 0) return 0;
         let totalHeight = 0;
         for (let i = 0; i < tiers.length - 1; i++) {
-          totalHeight += tiers[i].layers * 32;
+          totalHeight += tiers[i].layers * 8;
         }
-        return totalHeight + (tiers[tiers.length - 1].layers * 32);
+        return totalHeight + (tiers[tiers.length - 1].layers * 8);
       };
 
       const topTierHeight = React.useMemo(calculateTopTierHeight, [tiers]);
@@ -81,6 +81,10 @@ import React from 'react';
           {[...tiers].reverse().map((tier, index) => {
             const reversedIndex = tiers.length - 1 - index;
             const width = 200 - (reversedIndex * 25);
+            const layerCount = Math.min(tier.layers, 6);
+            const colors = tier.colors.slice(0, layerCount);
+            const layersPerColor = Math.floor(6 / colors.length);
+            const remainder = 6 % colors.length;
 
             return (
               <div
@@ -101,17 +105,23 @@ import React from 'react';
                     zIndex: 1,
                   }}
                 />
-                {[...Array(tier.layers)].map((_, layerIndex) => (
-                  <div
-                    key={layerIndex}
-                    className="w-full h-8 rounded-sm relative"
-                    style={{
-                      backgroundColor: tier.colors[layerIndex],
-                      transform: 'translateY(-2px)',
-                      zIndex: 2,
-                    }}
-                  />
-                ))}
+                {Array.from({ length: 6 }).map((_, layerIndex) => {
+                  let colorIndex = Math.floor(layerIndex / layersPerColor);
+                  if (layerIndex >= (layersPerColor * colors.length)) {
+                    colorIndex = colors.length - 1;
+                  }
+                  return (
+                    <div
+                      key={layerIndex}
+                      className="w-full h-2 rounded-sm relative"
+                      style={{
+                        backgroundColor: colors[colorIndex] || '#FFB5E8',
+                        transform: 'translateY(-1px)',
+                        zIndex: 2,
+                      }}
+                    />
+                  );
+                })}
               </div>
             );
           })}

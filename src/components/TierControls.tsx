@@ -47,17 +47,26 @@ import React, { useState } from 'react';
 
           <div className="flex border-b">
             {tiers.map((_, index) => (
-              <button
-                key={index}
-                className={`py-2 px-4 border-b-2 ${
-                  activeTab === index
-                    ? 'border-pink-500 text-pink-700 font-medium'
-                    : 'border-transparent hover:border-gray-300 text-gray-600'
-                }`}
-                onClick={() => setActiveTab(index)}
-              >
-                {tierName(index)}
-              </button>
+              <div key={index} className="relative">
+                <button
+                  className={`py-2 px-4 border-b-2 ${
+                    activeTab === index
+                      ? 'border-pink-500 text-pink-700 font-medium'
+                      : 'border-transparent hover:border-gray-300 text-gray-600'
+                  }`}
+                  onClick={() => setActiveTab(index)}
+                >
+                  {tierName(index)}
+                </button>
+                {tiers.length > 1 && (
+                  <button
+                    onClick={() => onRemoveTier(index)}
+                    className="absolute top-1 right-1 text-red-600 hover:text-red-700"
+                  >
+                    X
+                  </button>
+                )}
+              </div>
             ))}
           </div>
 
@@ -69,14 +78,6 @@ import React, { useState } from 'react';
                   tierIndex={index}
                   onUpdate={onTierUpdate}
                 />
-                {tiers.length > 1 && (
-                  <button
-                    onClick={() => onRemoveTier(index)}
-                    className="absolute top-4 right-4 text-red-600 hover:text-red-700"
-                  >
-                    Remove
-                  </button>
-                )}
               </div>
             ))}
           </div>

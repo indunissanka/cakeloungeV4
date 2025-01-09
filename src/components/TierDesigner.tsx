@@ -27,9 +27,28 @@ import React from 'react';
         onUpdate(tierIndex, { ...tier, outerColor: color });
       };
 
+      const tierName = (tierIndex: number) => {
+        switch (tierIndex + 1) {
+          case 1:
+            return 'Tier One';
+          case 2:
+            return 'Tier Two';
+          case 3:
+            return 'Tier Three';
+          case 4:
+            return 'Tier Four';
+          case 5:
+            return 'Tier Five';
+          case 6:
+            return 'Tier Six';
+          default:
+            return `Tier ${tierIndex + 1}`;
+        }
+      };
+
       return (
         <div className="border border-pink-100 rounded-lg p-4 bg-white">
-          <h3 className="text-lg font-medium mb-4">Tier {tierIndex + 1}</h3>
+          <h3 className="text-lg font-medium mb-4">{tierName(tierIndex)}</h3>
           
           <div className="space-y-4">
             <div>

@@ -31,7 +31,7 @@ const FacebookFeed: React.FC = () => {
       script.onload = () => {
         window.fbAsyncInit = function() {
           window.FB.init({
-            appId: '1152048459596705',
+            appId: '1151152048459596705',
             cookie: true,
             xfbml: true,
             version: 'v18.0'
@@ -45,9 +45,12 @@ const FacebookFeed: React.FC = () => {
             function(response: any) {
               setLoading(false);
               if (response && !response.error) {
+                console.log('Facebook API Success:', response.data?.length, 'photos loaded');
                 setPhotos(response.data);
               } else {
                 console.error('Facebook API Error:', response?.error);
+                console.log('Facebook App ID:', '1151152048459596705');
+                console.log('Facebook Page:', 'thecakelounge.tcl');
                 setError('Failed to load photos from Facebook. Using demo images.');
                 setPhotos(placeholderImages);
               }

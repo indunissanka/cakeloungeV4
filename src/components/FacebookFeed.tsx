@@ -17,6 +17,16 @@ const FacebookFeed: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Set a timeout to prevent infinite loading
+    const loadingTimeout = setTimeout(() => {
+      if (loading) {
+        console.warn('Facebook SDK loading timeout - falling back to demo images');
+        setLoading(false);
+        setError('Facebook connection timed out. Using demo images.');
+        setPhotos(placeholderImages);
+      }
+    }, 10000); // 10 second timeout
+
     // Load Facebook SDK
     const loadFacebookSDK = () => {
       if (document.getElementById('facebook-jssdk')) return;
@@ -29,27 +39,41 @@ const FacebookFeed: React.FC = () => {
       script.crossOrigin = 'anonymous';
       
       script.onload = () => {
+        console.log('Facebook SDK loaded successfully');
+        
+        // Check if FB is available
+        if (!window.FB) {
+          console.error('Facebook SDK loaded but FB object not available');
+          setLoading(false);
+          setError('Facebook SDK initialization failed. Using demo images.');
+          setPhotos(placeholderImages);
+          return;
+        }
+
         window.fbAsyncInit = function() {
+          console.log('Initializing Facebook SDK...');
           window.FB.init({
-            appId: '1151152048459596705',
+            appId: '860114279786784',
             cookie: true,
             xfbml: true,
             version: 'v18.0'
           });
 
+          console.log('Fetching photos from Facebook API...');
           // Fetch photos
           window.FB.api(
             '/thecakelounge.tcl/photos',
             'GET',
             { fields: 'images', limit: 16 },
             function(response: any) {
+              clearTimeout(loadingTimeout);
               setLoading(false);
               if (response && !response.error) {
                 console.log('Facebook API Success:', response.data?.length, 'photos loaded');
                 setPhotos(response.data);
               } else {
                 console.error('Facebook API Error:', response?.error);
-                console.log('Facebook App ID:', '1151152048459596705');
+                console.log('Facebook App ID:', '860114279786784');
                 console.log('Facebook Page:', 'thecakelounge.tcl');
                 setError('Failed to load photos from Facebook. Using demo images.');
                 setPhotos(placeholderImages);
@@ -58,12 +82,13 @@ const FacebookFeed: React.FC = () => {
           );
         };
         
-        if (window.FB) {
-          window.fbAsyncInit();
-        }
+        // Initialize immediately since SDK is loaded
+        window.fbAsyncInit();
       };
 
       script.onerror = () => {
+        clearTimeout(loadingTimeout);
+        console.error('Failed to load Facebook SDK script');
         setLoading(false);
         setError('Failed to load Facebook SDK. Using demo images.');
         setPhotos(placeholderImages);
@@ -73,7 +98,10 @@ const FacebookFeed: React.FC = () => {
     };
 
     loadFacebookSDK();
-  }, []);
+
+    // Cleanup timeout on unmount
+    return () => clearTimeout(loadingTimeout);
+  }, [loading]);
 
   if (loading) {
     return (

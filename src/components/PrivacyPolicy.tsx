@@ -104,7 +104,7 @@ const PrivacyPolicy: React.FC = () => {
 
           <h2 className="text-2xl font-semibold text-gray-800 mb-4 mt-6">10. Facebook App Specific Information</h2>
           <p className="text-gray-700 mb-4">
-            <strong>Facebook App ID:</strong> 1151152048459596705<br />
+            <strong>Facebook App ID:</strong> 860114279786784<br />
             <strong>Data Accessed:</strong> Public photos from The Cake Lounge Facebook page<br />
             <strong>Permissions:</strong> No user permissions required<br />
             <strong>Data Storage:</strong> No user data stored
